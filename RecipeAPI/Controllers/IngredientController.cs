@@ -64,7 +64,7 @@ namespace RecipeAPI.Controllers
                 return BadRequest(ModelState);
             
             var ingredient = _ingredientRepository.GetIngredients()
-                .Where(i => i.Name == ingredientCreate.Name.TrimEnd().ToUpper())
+                .Where(i => i.Name.TrimEnd().ToUpper() == ingredientCreate.Name.TrimEnd().ToUpper())
                 .FirstOrDefault();
 
             if (ingredient != null)

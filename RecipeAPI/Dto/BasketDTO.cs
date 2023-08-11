@@ -5,7 +5,7 @@ namespace RecipeAPI.Dto
     public class BasketDTO
     {
         public int BasketId { get; set; }
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public List<BasketItemDTO> BasketItems { get; set; }
 
 
     }

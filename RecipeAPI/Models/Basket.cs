@@ -6,10 +6,7 @@ namespace RecipeAPI.Models
     {
         [Key]
         public int BasketId { get; set; }
-
-        // Add more properties as needed
-
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public virtual ICollection<BasketItem> BasketItems { get; set; }
     }
 
 }

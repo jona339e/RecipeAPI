@@ -102,7 +102,7 @@ namespace RecipeAPI.Controllers
             }
 
             return NoContent();
-        })
+        }
 
 
     }

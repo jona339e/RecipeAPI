@@ -66,7 +66,7 @@ namespace RecipeAPI.Controllers
                 .Where(c => c.Name.Trim().ToLower() == createCategory.Name.Trim().ToLower())
                 .FirstOrDefault();
 
-            if (category == null)
+            if (category != null)
             {
                 ModelState.AddModelError("", $"Category {createCategory.Name} already exists");
                 return StatusCode(422, ModelState);
