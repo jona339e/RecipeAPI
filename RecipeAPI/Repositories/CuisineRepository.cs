@@ -14,36 +14,45 @@ namespace RecipeAPI.Repositories
             _dbContext = dbContext;
         }
 
+        public bool CreateCuisine(Cuisine cuisine)
+        {
+            _dbContext.Cuisines.Add(cuisine);
+            return Save();
+
+        }
+
+        public bool CuisineExists(int cuisineId)
+        {
+            return _dbContext.Cuisines.Any(c => c.CuisineId == cuisineId);
+        }
+
+        public bool DeleteCuisine(Cuisine cuisine)
+        {
+            _dbContext.Cuisines.Remove(cuisine);
+            return Save();
+        }
+
         public Cuisine GetCuisineById(int cuisineId)
         {
             return _dbContext.Cuisines.Find(cuisineId);
         }
 
-        public void CreateCuisine(Cuisine cuisine)
+        public List<Cuisine> GetCuisines()
         {
-            _dbContext.Cuisines.Add(cuisine);
-            _dbContext.SaveChanges();
+            return _dbContext.Cuisines.ToList();
         }
 
-        public void UpdateCuisine(Cuisine cuisine)
+        public bool Save()
         {
-            _dbContext.Entry(cuisine).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            return _dbContext.SaveChanges() >= 0 ? true : false;
         }
-        public void DeleteCuisine(int cuisineId)
+
+        public bool UpdateCuisine(Cuisine cuisine)
         {
-            Cuisine cuisine = _dbContext.Cuisines.Find(cuisineId);
-            if (cuisine != null)
-            {
-                _dbContext.Cuisines.Remove(cuisine);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Cuisines.Update(cuisine);
+            return Save();
         }
+
+
     }
-
-
-
-
-
-
 }

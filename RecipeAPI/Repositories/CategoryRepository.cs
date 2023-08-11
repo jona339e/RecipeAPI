@@ -19,26 +19,38 @@ namespace RecipeAPI.Repositories
             return _dbContext.Categories.Find(categoryId);
         }
 
-        public void CreateCategory(Category category)
+        public bool CreateCategory(Category category)
         {
             _dbContext.Categories.Add(category);
-            _dbContext.SaveChanges();
+            return Save();
         }
 
-        public void UpdateCategory(Category category)
+        public bool UpdateCategory(Category category)
         {
-            _dbContext.Entry(category).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            _dbContext.Categories.Update(category);
+            return Save();
         }
 
-        public void DeleteCategory(int categoryId)
+        public bool DeleteCategory(Category category)
         {
-            Category category = _dbContext.Categories.Find(categoryId);
-            if (category != null)
-            {
-                _dbContext.Categories.Remove(category);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Categories.Remove(category);
+            return Save();
+
+        }
+
+        public List<Category> GetCategories()
+        {
+            return _dbContext.Categories.ToList();
+        }
+
+        public bool CategoryExists(int categoryId)
+        {
+            return _dbContext.Categories.Any(c => c.CategoryId == categoryId);
+        }
+
+        public bool Save()
+        {
+            return _dbContext.SaveChanges() >= 0 ? true : false;
         }
 
         // Implement other methods

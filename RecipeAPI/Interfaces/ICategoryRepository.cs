@@ -5,8 +5,11 @@ namespace RecipeAPI.Interfaces
     public interface ICategoryRepository
     {
         Category GetCategoryById(int categoryId);
-        void CreateCategory(Category category);
-        void UpdateCategory(Category category);
-        void DeleteCategory(int categoryId);
+        List<Category> GetCategories();
+        bool CategoryExists(int categoryId);
+        bool CreateCategory(Category category);
+        bool UpdateCategory(Category category);
+        bool DeleteCategory(Category category);
+        bool Save();
     }
 }

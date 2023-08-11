@@ -5,8 +5,11 @@ namespace RecipeAPI.Interfaces
     public interface IWeekScheduleRepository
     {
         WeekSchedule GetWeekScheduleById(int weekScheduleId);
-        void CreateWeekSchedule(WeekSchedule weekSchedule);
-        void UpdateWeekSchedule(WeekSchedule weekSchedule);
-        void DeleteWeekSchedule(int weekScheduleId);
+        List<WeekSchedule> GetWeekSchedules();
+        bool WeekScheduleExists(int weekScheduleId);
+        bool CreateWeekSchedule(WeekSchedule weekSchedule);
+        bool UpdateWeekSchedule(WeekSchedule weekSchedule);
+        bool DeleteWeekSchedule(WeekSchedule weekSchedule);
+        bool Save();
     }
 }

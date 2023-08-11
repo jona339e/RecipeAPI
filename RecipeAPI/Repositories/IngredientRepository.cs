@@ -19,26 +19,32 @@ namespace RecipeAPI.Repositories
             return _dbContext.Ingredients.Find(ingredientId);
         }
 
-        public void CreateIngredient(Ingredient ingredient)
+        public bool CreateIngredient(Ingredient ingredient)
         {
             _dbContext.Ingredients.Add(ingredient);
-            _dbContext.SaveChanges();
+            return Save();
         }
 
-        public void UpdateIngredient(Ingredient ingredient)
+        public bool UpdateIngredient(Ingredient ingredient)
         {
-            _dbContext.Entry(ingredient).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            _dbContext.Ingredients.Update(ingredient);
+            return Save();
         }
 
-        public void DeleteIngredient(int ingredientId)
+        public bool DeleteIngredient(Ingredient ingredient)
         {
-            Ingredient ingredient = _dbContext.Ingredients.Find(ingredientId);
-            if (ingredient != null)
-            {
-                _dbContext.Ingredients.Remove(ingredient);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Remove(ingredient);
+            return Save();
+        }
+
+        public List<Ingredient> GetIngredients()
+        {
+            return _dbContext.Ingredients.ToList();
+        }
+
+        public bool Save()
+        {
+            return _dbContext.SaveChanges() >= 0 ? true : false;
         }
     }
 }

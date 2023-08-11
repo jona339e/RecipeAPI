@@ -14,32 +14,40 @@ namespace RecipeAPI.Repositories
             _dbContext = dbContext;
         }
 
+        public bool CreateWeekSchedule(WeekSchedule weekSchedule)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteWeekSchedule(WeekSchedule weekSchedule)
+        {
+            throw new NotImplementedException();
+        }
+
         public WeekSchedule GetWeekScheduleById(int weekScheduleId)
         {
             return _dbContext.WeekSchedules.Find(weekScheduleId);
         }
 
-        public void CreateWeekSchedule(WeekSchedule weekSchedule)
+        public List<WeekSchedule> GetWeekSchedules()
         {
-            _dbContext.WeekSchedules.Add(weekSchedule);
-            _dbContext.SaveChanges();
+            return _dbContext.WeekSchedules.ToList();
         }
 
-        public void UpdateWeekSchedule(WeekSchedule weekSchedule)
+        public bool Save()
         {
-            _dbContext.Entry(weekSchedule).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            throw new NotImplementedException();
         }
 
-        public void DeleteWeekSchedule(int weekScheduleId)
+        public bool UpdateWeekSchedule(WeekSchedule weekSchedule)
         {
-            WeekSchedule weekSchedule = _dbContext.WeekSchedules.Find(weekScheduleId);
-            if (weekSchedule != null)
-            {
-                _dbContext.WeekSchedules.Remove(weekSchedule);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.WeekSchedules.Update(weekSchedule);
+            return Save();
         }
 
+        public bool WeekScheduleExists(int weekScheduleId)
+        {
+            return _dbContext.WeekSchedules.Any(ws => ws.WeekScheduleId == weekScheduleId);
+        }
     }
 }

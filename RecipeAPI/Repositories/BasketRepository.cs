@@ -19,27 +19,37 @@ namespace RecipeAPI.Repositories
             return _dbContext.Baskets.Find(basketId);
         }
 
-        public void CreateBasket(Basket basket)
+        public bool CreateBasket(Basket basket)
         {
             _dbContext.Baskets.Add(basket);
-            _dbContext.SaveChanges();
+            return Save();
         }
 
-        public void UpdateBasket(Basket basket)
+        public bool UpdateBasket(Basket basket)
         {
-            _dbContext.Entry(basket).State = EntityState.Modified;
-            _dbContext.SaveChanges();
+            _dbContext.Baskets.Update(basket);
+            return Save();
         }
 
-        public void DeleteBasket(int basketId)
+        public bool DeleteBasket(Basket basket)
         {
-            Basket basket = _dbContext.Baskets.Find(basketId);
-            if (basket != null)
-            {
-                _dbContext.Baskets.Remove(basket);
-                _dbContext.SaveChanges();
-            }
+            _dbContext.Baskets.Remove(basket);
+            return Save();
         }
 
+        public bool Save()
+        {
+            return _dbContext.SaveChanges() >= 0 ? true : false;
+        }
+
+        public bool BasketExists(int basketId)
+        {
+            return _dbContext.Baskets.Any(b => b.BasketId == basketId);
+        }
+
+        public ICollection<Basket> GetBaskets()
+        {
+            return _dbContext.Baskets.ToList();
+        }
     }
 }

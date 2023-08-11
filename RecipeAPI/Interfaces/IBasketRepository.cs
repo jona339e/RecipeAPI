@@ -4,9 +4,12 @@ namespace RecipeAPI.Interfaces
 {
     public interface IBasketRepository
     {
+        ICollection<Basket> GetBaskets();
         Basket GetBasketById(int basketId);
-        void CreateBasket(Basket basket);
-        void UpdateBasket(Basket basket);
-        void DeleteBasket(int basketId);
+        bool BasketExists(int basketId);
+        bool CreateBasket(Basket basket);
+        bool UpdateBasket(Basket basket);
+        bool DeleteBasket(Basket basket);
+        bool Save();
     }
 }
